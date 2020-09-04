@@ -7,9 +7,11 @@ const Profilo = new Schema({
         type: Date,
         default: Date.now
     },
+    createdBy: String,
     updated: {
         type: Date,
         default: Date.now
-    }
+    },
+    updatedBy: String
 });
 module.exports = mongoose.model('Profilo', Profilo);

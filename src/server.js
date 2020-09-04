@@ -30,6 +30,7 @@ app.use('/api/azienda', require('./api/AziendaService'));
 app.use('/api/profilo', require('./api/ProfiloService'));
 app.use('/api/file', require('./api/FileService'));
 app.use('/api/categoria-prodotto', require('./api/CategoriaProdottoService'));
+app.use('/api/shop', require('./api/ShopService'));
 //app.use('/api/auth/google', require('./api/GoogleService'));
 
 //static files
