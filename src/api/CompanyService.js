@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Entity = require('../models/Company');
+const Anagrafica = require('../models/Anagrafica');
+
 router.get('/', async (req, res) => {
     const resPerPage = 10; // results per page
     const page = req.query.page || 1;
@@ -24,16 +26,25 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const companyToInsert                       = new Entity(req.body);
-    companyToInsert.descrizione                 = companyToInsert.anagrafica.entitaGiuridica.descrAttivita;
-    companyToInsert.anagrafica.codice           = companyToInsert.codice;
-    companyToInsert.anagrafica.descrizione      = companyToInsert.anagrafica.entitaGiuridica.descrAttivita;
-    companyToInsert.anagrafica.tipoAnagrafica   = 'PG';
-    companyToInsert.anagrafica.stAnagrafica     = 'O';
-    companyToInsert.anagrafica.titolo           = 'SRL';
-    companyToInsert.anagrafica.isCompany        = true;
-    const anagraficaId = await salvaAnagrafica(companyToInsert.anagrafica);
-    companyToInsert.anagrafica  = anagraficaId;
+    console.log('req', req.body);
+    
+
+    const companyBody                       = req.body;
+    console.log('company',companyBody);
+    companyBody.descrizione                 = companyBody.anagrafica.entitaGiuridica.descrAttivita;
+    companyBody.anagrafica.codice           = companyBody.codice;
+    companyBody.anagrafica.descrizione      = companyBody.anagrafica.entitaGiuridica.descrAttivita;
+    companyBody.anagrafica.tipoAnagrafica   = 'PG';
+    companyBody.anagrafica.stAnagrafica     = 'O';
+    companyBody.anagrafica.titolo           = 'SRL';
+    companyBody.anagrafica.isCompany        = true;
+    const anagraficaId = await salvaAnagrafica(companyBody.anagrafica);
+
+    const companyToInsert   =  new Entity({
+        codice: companyBody.codice
+        , descrizione: companyBody.descrizione
+        , anagrafica: anagraficaId
+    });
 
     await companyToInsert.save();
 

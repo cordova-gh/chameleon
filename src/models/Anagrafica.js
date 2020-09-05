@@ -2,6 +2,7 @@ const Indirizzo = require('./Indirizzo');
 const PersonaFisica = require('./PersonaFisica');
 const EntitaGiuridica = require('./EntitaGiuridica');
 const Fornitore = require('./Fornitore');
+const Riferimento = require('./Riferimento');
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
@@ -29,6 +30,7 @@ const Anagrafica = new Schema({
    , personaFisica: PersonaFisica
    , entitaGiuridica: EntitaGiuridica
    , fornitore: Fornitore
+   , riferimento: Riferimento
    , isFornitore: {
       type: Boolean,
       default: false
