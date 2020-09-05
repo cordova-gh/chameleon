@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Entity = require('../models/Profilo');
+const Entity = require('../models/Company');
 
 router.get('/', async (req, res) => {
     const resPerPage = 10; // results per page
@@ -19,29 +19,9 @@ router.get('/', async (req, res) => {
     });
 });
 
-
-
-
 router.get('/:id', async (req, res) => {
     const entity = await Entity.findById(req.params.id);
     res.json(entity);
-});
-
-
-router.get('/findByDescrizione/:descrizione', async (req, res) => {
-    let reg = new RegExp(req.params.descrizione + '.*');
-    const entities = await Entity.find({ descrizione: reg });
-    res.json({
-        entities: entities
-    });
-});
-
-router.get('/findByCodice/:codice', async (req, res) => {
-    let reg = new RegExp(req.params.codice + '.*');
-    const entities = await Entity.find({ codice: reg });
-    res.json({
-        entities: entities
-    });
 });
 
 router.post('/', async (req, res) => {

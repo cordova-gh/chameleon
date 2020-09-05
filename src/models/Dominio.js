@@ -1,6 +1,6 @@
 const mongoose   = require('mongoose');
 const {Schema} = mongoose;
-const Domini  = new Schema({
+const Dominio  = new Schema({
     lingua   : Number,
     dominio: String,
     codice: String,
@@ -17,5 +17,5 @@ const Domini  = new Schema({
         default: Date.now
      },
 });
-Domini.index({ lingua: 1, dominio: 1, codice:1 }, { unique: true });
-module.exports = mongoose.model('Domini', Domini);
+Dominio.index({ lingua: 1, Dominio: 1, codice:1 }, { unique: true });
+module.exports = mongoose.model('Domini', Dominio);

@@ -25,11 +25,11 @@ app.use(passport.session());
 // Routes 
 app.use('/api/tasks', require('./api/TaskService'));
 app.use('/api/users', require('./api/UserService'));
-app.use('/api/domini', require('./api/DominiService'));
-app.use('/api/azienda', require('./api/AziendaService'));
-app.use('/api/profilo', require('./api/ProfiloService'));
-app.use('/api/file', require('./api/FileService'));
-app.use('/api/categoria-prodotto', require('./api/CategoriaProdottoService'));
+app.use('/api/dominios', require('./api/DominioService'));
+app.use('/api/companies', require('./api/CompanyService'));
+app.use('/api/profiles', require('./api/ProfileService'));
+app.use('/api/files', require('./api/FileService'));
+app.use('/api/categoria-prodottos', require('./api/CategoriaProdottoService'));
 app.use('/api/shop', require('./api/ShopService'));
 //app.use('/api/auth/google', require('./api/GoogleService'));
 

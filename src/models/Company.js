@@ -1,7 +1,7 @@
 
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-const Azienda = new Schema({
+const Company = new Schema({
    codice: String
    , descrizione: String
    , anagraficaId: String
@@ -14,4 +14,4 @@ const Azienda = new Schema({
       default: Date.now
    }
 });
-module.exports = mongoose.model('Azienda', Azienda);
+module.exports = mongoose.model('Company', Company);

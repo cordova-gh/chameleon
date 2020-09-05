@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Entity = require('../models/Domini');
+const Entity = require('../models/Dominio');
 
 router.get('/', async (req, res) => {
     const resPerPage = 10; // results per page
