@@ -35,10 +35,7 @@ const Anagrafica = new Schema({
    }, isCliente: {
       type: Boolean,
       default: false
-   }, isAzienda: {
-      type: Boolean,
-      default: false
-   }, isShop: {
+   }, isCompany: {
       type: Boolean,
       default: false
    }, isUser: {

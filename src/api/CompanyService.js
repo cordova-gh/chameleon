@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const Entity = require('../models/Company');
-
 router.get('/', async (req, res) => {
     const resPerPage = 10; // results per page
     const page = req.query.page || 1;
     console.log('page ', page, req.query.page);
     //const entities = await Entity.find();
-    const entities = await Entity.find();
+    const entities = await Entity.find().populate('anagrafica');
 
     const numOfEntities = await Entity.countDocuments();
     res.json({
@@ -20,13 +19,24 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-    const entity = await Entity.findById(req.params.id);
+    const entity = await Entity.findById(req.params.id).populate('anagrafica');
     res.json(entity);
 });
 
 router.post('/', async (req, res) => {
-    const entity = new Entity(req.body);
-    await entity.save();
+    const companyToInsert                       = new Entity(req.body);
+    companyToInsert.descrizione                 = companyToInsert.anagrafica.entitaGiuridica.descrAttivita;
+    companyToInsert.anagrafica.codice           = companyToInsert.codice;
+    companyToInsert.anagrafica.descrizione      = companyToInsert.anagrafica.entitaGiuridica.descrAttivita;
+    companyToInsert.anagrafica.tipoAnagrafica   = 'PG';
+    companyToInsert.anagrafica.stAnagrafica     = 'O';
+    companyToInsert.anagrafica.titolo           = 'SRL';
+    companyToInsert.anagrafica.isCompany        = true;
+    const anagraficaId = await salvaAnagrafica(companyToInsert.anagrafica);
+    companyToInsert.anagrafica  = anagraficaId;
+
+    await companyToInsert.save();
+
     res.json({
         status: 'OK RICEVUTO'
     })
@@ -45,5 +55,18 @@ router.delete('/:id', async (req, res) => {
         status: 'OK cancellato'
     })
 });
+
+
+async function salvaAnagrafica(anagraficaBody) {
+    const id = anagraficaBody._id;
+    if (id) {
+        await Anagrafica.findByIdAndUpdate(id, anagraficaBody);
+        return id;
+    } else {
+        let anagrafica = new Anagrafica(anagraficaBody);
+        await anagrafica.save(anagrafica);
+        return anagrafica._id;
+    }
+}
 
 module.exports = router;
