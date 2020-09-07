@@ -33,6 +33,7 @@ app.use('/api/categoria-prodottos', require('./api/CategoriaProdottoService'));
 app.use('/api/shops', require('./api/ShopService'));
 app.use('/api/anagraficas', require('./api/AnagraficaService'));
 app.use('/api/anagrafica-fornitore-clientes', require('./api/AnagraficaFornitoreClienteService'));
+app.use('/api/countries', require('./api/CountryService'));
 //app.use('/api/auth/google', require('./api/GoogleService'));
 
 //static files

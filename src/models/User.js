@@ -1,17 +1,17 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const { Schema } = mongoose;
-const Anagrafica = require('./Anagrafica');
 const user = new Schema({
     email: {
         type: String,
         unique: true
     },
     password: { type: String, select: false },
-    stUtenza: String,
-    profiloId: String,
     anagrafica:  { type: Schema.Types.ObjectId, ref: 'Anagrafica' },
-    aziendaId: String,
+    stUtenza: { type: Schema.Types.ObjectId, ref: 'Dominio' },
+    profileId: { type: Schema.Types.ObjectId, ref: 'Profile' },
+    aziendaId: { type: Schema.Types.ObjectId, ref: 'Company' },
+    shops: Array,
     created: {
         type: Date,
         default: Date.now

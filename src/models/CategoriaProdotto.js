@@ -4,7 +4,7 @@ const CategoriaProdotto = new Schema({
    codice: String
    , descrizione: String
    , img: Buffer
-   , sottoCategorias: []
+   , tipologiaProdotto: String
    , created: {
       type: Date,
       default: Date.now

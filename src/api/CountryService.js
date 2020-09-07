@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const Entity = require('../models/Dominio');
+const Entity = require('../models/Country');
 
 router.get('/', async (req, res) => {
     const resPerPage = 10; // results per page
     const page = req.query.page || 1;
     //const entities = await Entity.find();
-    const entities = await Entity.find().sort('dominio');
+    const entities = await Entity.find().sort('codIsoStato');
 
     const numOfEntities = await Entity.countDocuments();
     res.json({
