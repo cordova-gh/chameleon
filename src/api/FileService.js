@@ -49,7 +49,16 @@ function getEntities(rows) {
         let obj = {};
         for (let j = 0; j < header.length; j++) {
             const headerElement = header[j];
-            obj[headerElement] = rowContent[j].trim();
+            if(headerElement.indexOf(".")>0){
+                const elements = headerElement.split(".");
+                if(!obj[elements[0]]){
+                    obj[elements[0]]={};
+                }
+                obj[elements[0]][elements[1]] = rowContent[j].trim();
+            }else{
+                obj[headerElement] = rowContent[j].trim();
+            }
+           
         }
         payLoad.push(obj);
     }
