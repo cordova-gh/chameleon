@@ -9,7 +9,7 @@ const Prodotto = new Schema({
    , sottoCategoriaProdotto: String // es.LIQUORI
    , provenienza: String
    , marca: String
-   , fornitore: { type: Schema.Types.ObjectId, ref: 'Anagrafica' },
+   , unitaMisura: String
 });
 
 
