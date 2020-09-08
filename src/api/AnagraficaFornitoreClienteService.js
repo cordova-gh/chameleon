@@ -7,6 +7,9 @@ router.get('/', async (req, res) => {
     const page = req.query.page || 1;
     console.log('page ', page, req.query.page);
     //const entities = await Entity.find();
+    
+
+
     const entities = await Entity.find( {$or:[ {'isFornitore':true}, {'isCliente':true} ]});
 
     const numOfEntities = await Entity.countDocuments();

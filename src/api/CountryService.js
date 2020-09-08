@@ -6,7 +6,10 @@ router.get('/', async (req, res) => {
     const resPerPage = 10; // results per page
     const page = req.query.page || 1;
     //const entities = await Entity.find();
-    const entities = await Entity.find().sort('codIsoStato');
+    const entities = await Entity.find()
+    .skip((resPerPage * page) - resPerPage)
+    .limit(resPerPage)
+    .sort('codIsoStato');
 
     const numOfEntities = await Entity.countDocuments();
     res.json({

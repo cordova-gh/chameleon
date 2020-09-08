@@ -48,7 +48,7 @@ function getEntities(rows) {
         const rowContent = content[i];
         let obj = {};
         for (let j = 0; j < header.length; j++) {
-            const headerElement = header[j];
+            const headerElement = header[j].trim();
             if(headerElement.indexOf(".")>0){
                 const elements = headerElement.split(".");
                 if(!obj[elements[0]]){
