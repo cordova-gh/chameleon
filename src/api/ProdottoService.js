@@ -1,12 +1,21 @@
 const express = require('express');
 const router = express.Router();
-const Entity = require('../models/Country');
+const Entity = require('../models/Articolo');
 
 router.get('/', async (req, res) => {
     const resPerPage = 10; // results per page
     const page = req.query.page || 1;
     //const entities = await Entity.find();
-    const entities = await Entity.find().sort('codice');
+    let query = Entity.find();
+    Object.keys(req.query).forEach((key) => {
+      if (key !== 'page') query.where(key, req.query[key]);
+    });
+
+    const entities = await query
+    .skip(resPerPage * page - resPerPage)
+    .limit(resPerPage)
+    .sort('codice')
+    .exec();
 
     const numOfEntities = await Entity.countDocuments();
     res.json({
@@ -19,18 +28,7 @@ router.get('/', async (req, res) => {
 });
 
 
-router.get('/:dominio', async (req, res) => {
 
-    const entities = await Entity.find({ dominio: req.params.dominio });
-    res.json(entities);
-});
-
-router.get('/:dominio/:descrizione', async (req, res) => {
-    console.log(req.params.descrizione);
-    let reg = new RegExp( req.params.descrizione + '.*');
-    const entities = await Entity.find({ dominio: req.params.dominio, descrizione: reg });
-    res.json(entities);
-});
 
 
 router.get('/:id', async (req, res) => {
