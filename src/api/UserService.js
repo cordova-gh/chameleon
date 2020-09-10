@@ -11,6 +11,8 @@ router.get('/', async (req, res) => {
     //const entities = await User.find();
     const entities = await User.find()
         .populate('anagrafica')
+        .populate('profile')
+        .populate('azienda')
         .skip((resPerPage * page) - resPerPage)
         .limit(resPerPage);
 

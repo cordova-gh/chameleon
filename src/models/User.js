@@ -9,8 +9,8 @@ const user = new Schema({
     password: { type: String, select: false },
     anagrafica:  { type: Schema.Types.ObjectId, ref: 'Anagrafica' },
     stUtenza: { type: Schema.Types.ObjectId, ref: 'Dominio' },
-    profileId: { type: Schema.Types.ObjectId, ref: 'Profile' },
-    aziendaId: { type: Schema.Types.ObjectId, ref: 'Company' },
+    profile: { type: Schema.Types.ObjectId, ref: 'Profile' },
+    azienda: { type: Schema.Types.ObjectId, ref: 'Company' },
     shops: Array,
     created: {
         type: Date,

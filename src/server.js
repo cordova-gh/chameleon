@@ -36,6 +36,7 @@ app.use('/api/anagrafica-fornitore-clientes', require('./api/AnagraficaFornitore
 app.use('/api/countries', require('./api/CountryService'));
 app.use('/api/prodottos', require('./api/ProdottoService'));
 app.use('/api/unita-misuras', require('./api/UnitaMisuraService'));
+app.use('/api/marcas', require('./api/MarcaService'));
 //app.use('/api/auth/google', require('./api/GoogleService'));
 
 //static files
