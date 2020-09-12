@@ -18,4 +18,4 @@ const Dominio  = new Schema({
      },
 });
 Dominio.index({ lingua: 1, dominio: 1, codice:1 }, { unique: true });
-module.exports = mongoose.model('Domini', Dominio);
+module.exports = mongoose.model('Dominio', Dominio);
