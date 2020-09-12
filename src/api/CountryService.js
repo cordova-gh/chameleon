@@ -28,7 +28,7 @@ router.get('/', async (req, res) => {
 
 
 router.get('/all', async (req, res) => {
-  const entities = await Entity.find().sort('descrizione');
+  const entities = await Entity.find().sort('descrizione').select('codice').select('descrizione');
   res.json({
     entities: entities,
   });

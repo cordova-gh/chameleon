@@ -30,11 +30,18 @@ router.get('/', async (req, res) => {
 
 router.get('/includes', async (req, res) => {
   const dominiosToFind = req.query.domini.split(",");
-  console.log('DOMINIO TO FIND', dominiosToFind);
   let query = Entity.find();
   query.where('dominio').in(dominiosToFind);
-  const entities = await query.exec();
-  console.log('entities', entities)
+  const result = await query.exec();
+  const entities = {};
+  result.forEach(curDom =>{
+        if(!entities[curDom.dominio] ){
+          entities[curDom.dominio]= [];
+        }
+        entities[curDom.dominio].push(curDom);
+  });
+
+
   res.json(entities);
 
 });
