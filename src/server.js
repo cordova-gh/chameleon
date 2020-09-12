@@ -4,6 +4,8 @@ const morgan = require('morgan');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
 const cors = require('cors');
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 
 const app = express();
 require('./passport/local-auth');
@@ -19,6 +21,24 @@ app.use(cookieSession({
     keys: ['key1', 'key2']
   }))
 app.use(cors());
+const swaggerOptions = {
+  swaggerDefinition: {
+    info: {
+      version: "1.0.0",
+      title: "Customer API",
+      description: "Customer API Information",
+      contact: {
+        name: "Amazing Developer"
+      },
+      servers: ["http://localhost:5000"]
+    }
+  },
+  //['.api/*.js']
+  apis: ['server.js']
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -39,6 +59,7 @@ app.use('/api/unita-misuras', require('./api/UnitaMisuraService'));
 app.use('/api/marcas', require('./api/MarcaService'));
 //app.use('/api/auth/google', require('./api/GoogleService'));
 
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 //static files
 
 app.listen(app.get('port'), () => {

@@ -17,5 +17,5 @@ const Dominio  = new Schema({
         default: Date.now
      },
 });
-Dominio.index({ lingua: 1, Dominio: 1, codice:1 }, { unique: true });
+Dominio.index({ lingua: 1, dominio: 1, codice:1 }, { unique: true });
 module.exports = mongoose.model('Domini', Dominio);

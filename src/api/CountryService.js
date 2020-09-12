@@ -26,6 +26,12 @@ router.get('/', async (req, res) => {
   });
 });
 
+
+router.get('/all', async (req, res) => {
+  const entities = Entity.find();
+  res.json(entities);
+});
+
 router.get('/:dominio', async (req, res) => {
   const entities = await Entity.find({ dominio: req.params.dominio });
   res.json(entities);
