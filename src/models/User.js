@@ -8,7 +8,7 @@ const user = new Schema({
     },
     password: { type: String, select: false },
     anagrafica:  { type: Schema.Types.ObjectId, ref: 'Anagrafica' },
-    stUtenza: { type: Schema.Types.ObjectId, ref: 'Dominio' },
+    stUtenza: { type: Schema.Types.ObjectId, ref: 'Domini' },
     profile: { type: Schema.Types.ObjectId, ref: 'Profile' },
     azienda: { type: Schema.Types.ObjectId, ref: 'Company' },
     shops: Array,
