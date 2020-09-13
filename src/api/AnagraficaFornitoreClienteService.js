@@ -5,13 +5,7 @@ const Entity = require('../models/Anagrafica');
 router.get('/', async (req, res) => {
     const resPerPage = 10; // results per page
     const page = req.query.page || 1;
-    console.log('page ', page, req.query.page);
-    //const entities = await Entity.find();
-    
-
-
     const entities = await Entity.find( {$or:[ {'isFornitore':true}, {'isCliente':true} ]});
-
     const numOfEntities = await Entity.countDocuments();
     res.json({
         entities: entities,

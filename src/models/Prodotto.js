@@ -10,6 +10,7 @@ const Prodotto = new Schema({
    , provenienza: String
    , marca: String
    , unitaMisura: String
+   , codiceBarre: String
 });
 
 

@@ -1,17 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const Entity = require('../models/Articolo');
+const Service = require('./Service');
+const service = new Service();
 
 router.get('/', async (req, res) => {
     const resPerPage = 10; // results per page
     const page = req.query.page || 1;
-    //const entities = await Entity.find();
-    let query = Entity.find();
-    Object.keys(req.query).forEach((key) => {
-      if (key !== 'page') query.where(key, req.query[key]);
-    });
+    let queryObject = Entity.find();
+    queryObject = service.paramsQuery(queryObject, req.query);
 
-    const entities = await query
+    const entities = await queryObject
     .skip(resPerPage * page - resPerPage)
     .limit(resPerPage)
     .sort('codice')
