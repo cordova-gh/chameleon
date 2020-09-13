@@ -27,34 +27,12 @@ router.get('/', async (req, res) => {
   });
 });
 
-
 router.get('/all', async (req, res) => {
-  let queryObject = Entity.find();
-  queryObject = service.paramsQuery(queryObject, req.query);
-  const entities = await queryObject.sort('descrizione').select("descrizione");
-  res.json({
-    entities: entities,
-  });
-});
-
-router.get('/:dominio', async (req, res) => {
-  const entities = await Entity.find({ dominio: req.params.dominio });
-  res.json(entities);
-});
-
-router.get('/:dominio/:descrizione', async (req, res) => {
-  console.log(req.params.descrizione);
-  let reg = new RegExp(req.params.descrizione + '.*');
-  const entities = await Entity.find({
-    dominio: req.params.dominio,
-    descrizione: reg,
-  });
-  res.json(entities);
+  return service.getAll(Entity, req, res, 'codIsoStato descrizione', 'descrizione');
 });
 
 router.get('/:id', async (req, res) => {
-  const entity = await Entity.findById(req.params.id);
-  res.json(entity);
+  return service.getById(Entity, req.params.id, res);
 });
 
 router.post('/', async (req, res) => {

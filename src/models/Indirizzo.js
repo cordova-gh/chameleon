@@ -7,5 +7,5 @@ const Indirizzo = new Schema({
    cap: String,
    comune: String,
    provincia: String,
-   stato: String
+   stato: { type: Schema.Types.ObjectId, ref: 'Country' }
 });

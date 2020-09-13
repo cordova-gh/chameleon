@@ -1,24 +1,21 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
-const User = require('../models/User');
+const Entity = require('../models/User');
 const Anagrafica = require('../models/Anagrafica');
+const Service = require('./Service');
+const service = new Service();
 
 
 router.get('/', async (req, res) => {
     const resPerPage = 10; // results per page
     const page = req.query.page || 1;
-    console.log('page ', page, req.query.page);
-    //const entities = await User.find();
-    const entities = await User.find()
-        .populate('anagrafica')
-        .populate('profile')
-        .populate('azienda')
-        .populate('stUtenza')
+    const entities = await Entity.find()
+        .populate('anagrafica profile azienda stUtenza')
         .skip((resPerPage * page) - resPerPage)
         .limit(resPerPage);
 
-    const numOfEntities = await User.countDocuments();
+    const numOfEntities = await Entity.countDocuments();
     res.json({
         entities: entities,
         currentPage: page,
@@ -28,17 +25,23 @@ router.get('/', async (req, res) => {
     });
 });
 
-router.get('/:id', async (req, res) => {
-    const entity = await User.findById(req.params.id).populate('anagrafica');
-    res.json(entity);
-});
+router.get('/all', async (req, res) => {
+    return service.getAll(Entity, req, res, 'codice descrizione', 'descrizione');
+  });
+  
+  router.get('/:id', async (req, res) => {
+    return service.getById(Entity, req.params.id, res, 'anagrafica');
+  });
 
 router.post('/', async (req, res) => {
     const anagraficaId = await salvaAnagrafica(req.body.anagrafica);
-    const entity = new User({
+    const entity = new Entity({
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 10),
-        anagrafica: anagraficaId
+        anagrafica: anagraficaId,
+        profile: req.body.profile,
+        azienda: req.body.azienda,
+        stUtenza: req.body.stUtenza
     });
     await entity.save();
 
@@ -52,14 +55,14 @@ router.put('/:id', async (req, res) => {
     const anagraficaId = await salvaAnagrafica(req.body.anagrafica);
     delete req.body.anagrafica;
     user['anagrafica'] = anagraficaId;
-    await User.findByIdAndUpdate(req.params.id, user);
+    await Entity.findByIdAndUpdate(req.params.id, user);
     res.json({
         status: 'OK modificato'
     })
 });
 
 router.delete('/:id', async (req, res) => {
-    await User.findByIdAndRemove(req.params.id);
+    await Entity.findByIdAndRemove(req.params.id);
     res.json({
         status: 'OK cancellato'
     })
