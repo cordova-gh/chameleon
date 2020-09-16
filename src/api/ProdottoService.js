@@ -32,7 +32,7 @@ router.get('/all', async (req, res) => {
   });
   
 router.get('/:id', async (req, res) => {
-    return service.getById(Entity, req.params.id, res);
+    return service.getById(Entity, req.params.id, res, "prodotto.provenienza prodotto.marca prodotto.unitaMisura");
 });
 
 router.post('/', async (req, res) => {

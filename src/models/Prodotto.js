@@ -7,9 +7,9 @@ const Prodotto = new Schema({
    , tipologiaProdotto: String // abbigliamento, scarpe
    , categoriaProdotto: String // es.BEVANDE
    , sottoCategoriaProdotto: String // es.LIQUORI
-   , provenienza: String
-   , marca: String
-   , unitaMisura: String
+   , provenienza: { type: Schema.Types.ObjectId, ref: 'Counrtry' }
+   , marca: { type: Schema.Types.ObjectId, ref: 'Marca' }
+   , unitaMisura: { type: Schema.Types.ObjectId, ref: 'UnitaMiura' }
    , codiceBarre: String
 });
 
