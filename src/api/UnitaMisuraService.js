@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Entity = require('../models/UnitaMisura');
+const Service = require('./Service');
+const service = new Service();
 
 router.get('/', async (req, res) => {
     const resPerPage = 10; // results per page
@@ -19,7 +21,10 @@ router.get('/', async (req, res) => {
     });
 });
 
-
+router.get('/all', async (req, res) => {
+    return service.getAll(Entity, req, res, 'codice descrizione', 'codice');
+  });
+  
 
 
 router.get('/:id', async (req, res) => {
