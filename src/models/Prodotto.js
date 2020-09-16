@@ -9,7 +9,7 @@ const Prodotto = new Schema({
    , sottoCategoriaProdotto: String // es.LIQUORI
    , provenienza: { type: Schema.Types.ObjectId, ref: 'Counrtry' }
    , marca: { type: Schema.Types.ObjectId, ref: 'Marca' }
-   , unitaMisura: { type: Schema.Types.ObjectId, ref: 'UnitaMiura' }
+   , unitaMisura: { type: Schema.Types.ObjectId, ref: 'UnitaMisura' }
    , codiceBarre: String
 });
 
