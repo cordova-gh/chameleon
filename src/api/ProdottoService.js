@@ -15,6 +15,7 @@ router.get('/', async (req, res) => {
     .skip(resPerPage * page - resPerPage)
     .limit(resPerPage)
     .sort('codice')
+    .populate("prodotto.provenienza prodotto.marca prodotto.unitaMisura")
     .exec();
 
     const numOfEntities = await queryObjectCount.countDocuments();
@@ -32,7 +33,7 @@ router.get('/all', async (req, res) => {
   });
   
 router.get('/:id', async (req, res) => {
-    return service.getById(Entity, req.params.id, res, "prodotto.provenienza prodotto.marca prodotto.unitaMisura");
+    return service.getById(Entity, req.params.id, res);
 });
 
 router.post('/', async (req, res) => {
