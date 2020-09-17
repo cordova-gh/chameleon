@@ -12,12 +12,11 @@ router.get('/', async (req, res) => {
     let queryObjectCount  = Entity.find();
     queryObjectCount = service.paramsQuery(queryObjectCount, req.query);
     const entities = await queryObject
-    .populate({path:'prodotto.provenienza', 'model':'Country', select:'codiceIsoStato descrizione'})
-    .populate({path:'prodotto.marca', 'model':'Marca', select:'codice descrizione'})
+    /*.populate({path:'prodotto.provenienza', 'model':'Country', select:'codiceIsoStato descrizione'})
+    .populate({path:'prodotto.marca', 'model':'Marca', select:'codice descrizione'})*/
     .skip(resPerPage * page - resPerPage)
     .limit(resPerPage)
     .sort('codice')
-    
     .exec();
 
     const numOfEntities = await queryObjectCount.countDocuments();

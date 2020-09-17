@@ -7,9 +7,13 @@ const service = new Service();
 router.get('/', async (req, res) => {
     const resPerPage = 10; // results per page
     const page = req.query.page || 1;
-    console.log('page ', page, req.query.page);
-    //const entities = await Entity.find();
-    const entities = await Entity.find();
+    let queryObject = Entity.find();
+    queryObject = service.paramsQuery(queryObject, req.query);
+    const entities = await queryObject
+    .skip(resPerPage * page - resPerPage)
+    .limit(resPerPage)
+    .sort('codice')
+    .exec();
 
     const numOfEntities = await Entity.countDocuments();
     res.json({
