@@ -43,7 +43,6 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use(passport.initialize());
 app.use(passport.session());
 // Routes 
-app.use('/api/tasks', require('./api/TaskService'));
 app.use('/api/users', require('./api/UserService'));
 app.use('/api/dominios', require('./api/DominioService'));
 app.use('/api/companies', require('./api/CompanyService'));
