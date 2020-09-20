@@ -7,10 +7,11 @@ const service = new Service();
 router.get('/', async (req, res) => {
   const resPerPage = 10; // results per page
   const page = req.query.page || 1;
-  const entities = await Entity.find({
+  const filterBase = {
     $or: [{ isFornitore: true }, { isCliente: true }],
-  });
-  const numOfEntities = await Entity.countDocuments();
+  };
+  const entities = await service.getEntitiesPagination(Entity, req, filterBase, page, resPerPage, 'codice');
+  const numOfEntities = await service.numEntitiesPagination(Entity, req, filterBase);
   res.json({
     entities: entities,
     currentPage: page,

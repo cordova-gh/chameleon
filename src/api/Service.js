@@ -29,4 +29,22 @@ module.exports = class Service {
       entities: entities,
     });
   }
+
+  getQueryDocument(entity, request, filterBase){
+    return this.paramsQuery(entity.find(filterBase), request.query);
+  }
+
+  async getEntitiesPagination(Entity, req,filterBase, page, resPerPage,sortFields){
+    return   this.getQueryDocument(Entity, req, filterBase)
+    /*.populate({path:'prodotto.provenienza', 'model':'Country', select:'codiceIsoStato descrizione'})
+    .populate({path:'prodotto.marca', 'model':'Marca', select:'codice descrizione'})*/
+    .skip(resPerPage * page - resPerPage)
+    .limit(resPerPage)
+    .sort(sortFields)
+    .exec();
+  }
+
+  async numEntitiesPagination(Entity, req, filterBase){
+    return   this.getQueryDocument(Entity, req, filterBase).countDocuments();
+  }
 };

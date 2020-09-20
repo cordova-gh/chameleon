@@ -7,15 +7,15 @@ const service = new Service();
 router.get('/', async (req, res) => {
   const resPerPage = 10; // results per page
   const page = req.query.page || 1;
-  let queryObject = Entity.find();
-  queryObject = service.paramsQuery(queryObject, req.query);
-  const entities = await queryObject
-    .skip(resPerPage * page - resPerPage)
-    .limit(resPerPage)
-    .sort('dominio')
-    .exec();
-
-  const numOfEntities = await Entity.countDocuments();
+  const entities = await service.getEntitiesPagination(
+    Entity,
+    req,
+    {},
+    page,
+    resPerPage,
+    'dominio'
+  );
+  const numOfEntities = await service.numEntitiesPagination(Entity, req, {});
   res.json({
     entities: entities,
     currentPage: page,
@@ -25,25 +25,21 @@ router.get('/', async (req, res) => {
   });
 });
 
-
 router.get('/includes', async (req, res) => {
-  const dominiosToFind = req.query.domini.split(",");
+  const dominiosToFind = req.query.domini.split(',');
   let query = Entity.find();
   query.where('dominio').in(dominiosToFind);
   const result = await query.exec();
   const entities = {};
-  result.forEach(curDom =>{
-        if(!entities[curDom.dominio] ){
-          entities[curDom.dominio]= [];
-        }
-        entities[curDom.dominio].push(curDom);
+  result.forEach((curDom) => {
+    if (!entities[curDom.dominio]) {
+      entities[curDom.dominio] = [];
+    }
+    entities[curDom.dominio].push(curDom);
   });
 
-
   res.json(entities);
-
 });
-
 
 router.get('/:dominio', async (req, res) => {
   const entities = await Entity.find({ dominio: req.params.dominio });

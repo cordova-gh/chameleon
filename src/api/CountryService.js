@@ -8,16 +8,15 @@ const service = new Service();
 router.get('/', async (req, res) => {
   const resPerPage = 10; // results per page
   const page = req.query.page || 1;
-  let queryObject = Entity.find();
-  queryObject = service.paramsQuery(queryObject, req.query);
-
-  const entities = await queryObject
-    .skip(resPerPage * page - resPerPage)
-    .limit(resPerPage)
-    .sort('codIsoStato')
-    .exec();
-
-  const numOfEntities = await Entity.countDocuments();
+  const entities = await service.getEntitiesPagination(
+    Entity,
+    req,
+    {},
+    page,
+    resPerPage,
+    'codIsoStato'
+  );
+  const numOfEntities = await service.numEntitiesPagination(Entity, req, {});
   res.json({
     entities: entities,
     currentPage: page,
@@ -28,7 +27,13 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/all', async (req, res) => {
-  return service.getAll(Entity, req, res, 'codIsoStato descrizione', 'descrizione');
+  return service.getAll(
+    Entity,
+    req,
+    res,
+    'codIsoStato descrizione',
+    'descrizione'
+  );
 });
 
 router.get('/:id', async (req, res) => {

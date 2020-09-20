@@ -2,13 +2,9 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose;
 const Inventario = new Schema({
-    prodottoId: String,
-    dataRegistrazione: Date,
+    prodotto:  { type: Schema.Types.ObjectId, ref: 'Prodotto' },
     quantita: Number,
-    prezzo: String,
-    dtaScadenza: Date,
-    note: String,
-    fornitore: { type: Schema.Types.ObjectId, ref: 'Anagrafica' },
+    dataUltimaEntrata: Date,
     aziendaId: { type: Schema.Types.ObjectId, ref: 'Azienda' }
 });
 
