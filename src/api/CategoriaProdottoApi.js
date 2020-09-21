@@ -7,8 +7,6 @@ const mongoose = require('mongoose');
 router.get('/', async (req, res) => {
     const resPerPage = 10; // results per page
     const page = req.query.page || 1;
-    console.log('page ', page, req.query.page);
-    //const entities = await Entity.find();
     const entities = await Entity.find();
     const numOfEntities = await Entity.countDocuments();
     res.json({
@@ -19,9 +17,6 @@ router.get('/', async (req, res) => {
         numOfResults: numOfEntities
     });
 });
-
-
-
 
 router.get('/sotto-categoria-prodottos/:idCategoria', async (req, res) => {
     const resPerPage = 10; // results per page

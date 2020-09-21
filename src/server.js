@@ -43,21 +43,21 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use(passport.initialize());
 app.use(passport.session());
 // Routes 
-app.use('/api/users', require('./api/UserService'));
-app.use('/api/dominios', require('./api/DominioService'));
-app.use('/api/companies', require('./api/CompanyService'));
-app.use('/api/profiles', require('./api/ProfileService'));
-app.use('/api/files', require('./api/FileService'));
-app.use('/api/categoria-prodottos', require('./api/CategoriaProdottoService'));
-app.use('/api/shops', require('./api/ShopService'));
-app.use('/api/anagraficas', require('./api/AnagraficaService'));
-app.use('/api/anagrafica-fornitore-clientes', require('./api/AnagraficaFornitoreClienteService'));
-app.use('/api/countries', require('./api/CountryService'));
-app.use('/api/prodottos', require('./api/ProdottoService'));
-app.use('/api/unita-misuras', require('./api/UnitaMisuraService'));
-app.use('/api/marcas', require('./api/MarcaService'));
-app.use('/api/inventario-movimentos', require('./api/InventarioMovimentoService'));
-//app.use('/api/auth/google', require('./api/GoogleService'));
+app.use('/api/users', require('./api/UserApi'));
+app.use('/api/dominios', require('./api/DominioApi'));
+app.use('/api/companies', require('./api/CompanyApi'));
+app.use('/api/profiles', require('./api/ProfileApi'));
+app.use('/api/files', require('./api/FileApi'));
+app.use('/api/categoria-prodottos', require('./api/CategoriaProdottoApi'));
+app.use('/api/shops', require('./api/ShopApi'));
+app.use('/api/anagraficas', require('./api/AnagraficaApi'));
+app.use('/api/anagrafica-fornitore-clientes', require('./api/AnagraficaFornitoreClienteApi'));
+app.use('/api/countries', require('./api/CountryApi'));
+app.use('/api/prodottos', require('./api/ProdottoApi'));
+app.use('/api/unita-misuras', require('./api/UnitaMisuraApi'));
+app.use('/api/marcas', require('./api/MarcaApi'));
+app.use('/api/inventario-movimentos', require('./api/InventarioMovimentoApi'));
+//app.use('/api/auth/google', require('./api/GoogleApi'));
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 //static files

@@ -5,7 +5,6 @@ module.exports = class Service {
         const filterField = reqQueryField.split('.');
         if (filterField.length > 1) {
           if (filterField[1] === 'contains') {
-            console.log('regex', '^' + reqQueries[reqQueryField] + '/');
             let reg = new RegExp('^' + reqQueries[reqQueryField] + '.*', 'i');
             queryObject.where(filterField[0], reg);
           }
@@ -17,20 +16,16 @@ module.exports = class Service {
     }
     return queryObject;
   }
-  async getById(entityModel, id, res, populateFields) {
-    const entity = await entityModel.findById(id).populate(populateFields);
-    return res.json(entity);
+  async findById(entityModel, id, populateFields) {
+    return await entityModel.findById(id).populate(populateFields);
   }
 
-  async getAll(entityModel, req, res, selectFields, sortFields) {
+  async findAll(entityModel, req, res, selectFields, sortFields) {
     let queryObject = entityModel.find();
     queryObject = this.paramsQuery(queryObject, req.query);
-    const entities = await queryObject
+    return await queryObject
       .sort(sortFields)
       .select(selectFields);
-    return res.json({
-      entities: entities,
-    });
   }
 
   getQueryDocument(entity, request, filterBase){
