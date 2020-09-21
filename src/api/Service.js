@@ -34,12 +34,12 @@ module.exports = class Service {
     return this.paramsQuery(entity.find(filterBase), request.query);
   }
 
-  async getEntitiesPagination(Entity, req,filterBase, page, resPerPage,sortFields){
+  async getEntitiesPagination(Entity, req,filterBase, page, rowsPerPage,sortFields){
     return   this.getQueryDocument(Entity, req, filterBase)
     /*.populate({path:'prodotto.provenienza', 'model':'Country', select:'codiceIsoStato descrizione'})
     .populate({path:'prodotto.marca', 'model':'Marca', select:'codice descrizione'})*/
-    .skip(resPerPage * page - resPerPage)
-    .limit(resPerPage)
+    .skip(rowsPerPage * page - rowsPerPage)
+    .limit(rowsPerPage)
     .sort(sortFields)
     .exec();
   }

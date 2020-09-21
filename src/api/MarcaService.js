@@ -6,20 +6,20 @@ const service = new Service();
 
 router.get('/', async (req, res) => {
   const page = req.query.page || 1;
-  const resPerPage = req.query.resPerPage || 10;
+  const rowsPerPage = Number(req.query.rowsPerPage) || 10;
   const entities = await service.getEntitiesPagination(
     Entity,
     req,
     {},
     page,
-    resPerPage,
+    rowsPerPage,
     'codice'
   );
   const numOfEntities = await service.numEntitiesPagination(Entity, req, {});
   res.json({
     entities: entities,
     currentPage: page,
-    pages: Math.ceil(numOfEntities / resPerPage),
+    pages: Math.ceil(numOfEntities / rowsPerPage),
     // searchVal: searchQuery,
     numOfResults: numOfEntities,
   });

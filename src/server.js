@@ -56,6 +56,7 @@ app.use('/api/countries', require('./api/CountryService'));
 app.use('/api/prodottos', require('./api/ProdottoService'));
 app.use('/api/unita-misuras', require('./api/UnitaMisuraService'));
 app.use('/api/marcas', require('./api/MarcaService'));
+app.use('/api/inventario-movimentos', require('./api/InventarioMovimentoService'));
 //app.use('/api/auth/google', require('./api/GoogleService'));
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));

@@ -1,19 +1,19 @@
 const express = require('express');
 const router = express.Router();
-const Entity = require('../models/Shop');
+const Entity = require('../models/InventarioMovimento');
 const Service = require('./Service');
 const service = new Service();
 
 router.get('/', async (req, res) => {
-  const rowsPerPage = Number(req.query.rowsPerPage) || 10;
   const page = req.query.page || 1;
+  const rowsPerPage = Number(req.query.rowsPerPage) || 10;
   const entities = await service.getEntitiesPagination(
     Entity,
     req,
     {},
     page,
     rowsPerPage,
-    'codice'
+    ''
   );
   const numOfEntities = await service.numEntitiesPagination(Entity, req, {});
   res.json({
@@ -25,9 +25,22 @@ router.get('/', async (req, res) => {
   });
 });
 
+router.get('/all', async (req, res) => {
+  return service.getAll(Entity, req, res, '', 'dataRegistrazione');
+});
+
 router.get('/:id', async (req, res) => {
   const entity = await Entity.findById(req.params.id);
   res.json(entity);
+});
+
+router.post('/', async (req, res) => {
+  const entity = new Entity(req.body);
+  const prodotto = 
+  await entity.save();
+  res.json({
+    status: 'OK RICEVUTO',
+  });
 });
 
 router.put('/:id', async (req, res) => {
@@ -41,14 +54,6 @@ router.delete('/:id', async (req, res) => {
   await Entity.findByIdAndRemove(req.params.id);
   res.json({
     status: 'OK cancellato',
-  });
-});
-
-router.post('/', async (req, res) => {
-  const entity = new Entity(req.body);
-  await entity.save();
-  res.json({
-    status: 'OK RICEVUTO',
   });
 });
 

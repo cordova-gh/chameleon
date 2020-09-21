@@ -6,7 +6,7 @@ const Service = require('./Service');
 const service = new Service();
 
 router.get('/', async (req, res) => {
-  const resPerPage = 10; // results per page
+  const rowsPerPage = Number(req.query.rowsPerPage) || 10;
   const page = req.query.page || 1;
   console.log('page ', page, req.query.page);
   //const entities = await Entity.find();
@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
   res.json({
     entities: entities,
     currentPage: page,
-    pages: Math.ceil(numOfEntities / resPerPage),
+    pages: Math.ceil(numOfEntities / rowsPerPage),
     // searchVal: searchQuery,
     numOfResults: numOfEntities,
   });

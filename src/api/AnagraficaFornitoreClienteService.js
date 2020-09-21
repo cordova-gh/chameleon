@@ -5,17 +5,17 @@ const Service = require('./Service');
 const service = new Service();
 
 router.get('/', async (req, res) => {
-  const resPerPage = 10; // results per page
+  const rowsPerPage = Number(req.query.rowsPerPage) || 10;
   const page = req.query.page || 1;
   const filterBase = {
     $or: [{ isFornitore: true }, { isCliente: true }],
   };
-  const entities = await service.getEntitiesPagination(Entity, req, filterBase, page, resPerPage, 'codice');
+  const entities = await service.getEntitiesPagination(Entity, req, filterBase, page, rowsPerPage, 'codice');
   const numOfEntities = await service.numEntitiesPagination(Entity, req, filterBase);
   res.json({
     entities: entities,
     currentPage: page,
-    pages: Math.ceil(numOfEntities / resPerPage),
+    pages: Math.ceil(numOfEntities / rowsPerPage),
     // searchVal: searchQuery,
     numOfResults: numOfEntities,
   });

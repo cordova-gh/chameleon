@@ -7,18 +7,18 @@ const Service = require('./Service');
 const service = new Service();
 
 router.get('/', async (req, res) => {
-  const resPerPage = 10; // results per page
+  const rowsPerPage = Number(req.query.rowsPerPage) || 10;
   const page = req.query.page || 1;
   const entities = await Entity.find()
     .populate('anagrafica profile azienda stUtenza')
-    .skip(resPerPage * page - resPerPage)
-    .limit(resPerPage);
+    .skip(rowsPerPage * page - rowsPerPage)
+    .limit(rowsPerPage);
 
   const numOfEntities = await Entity.countDocuments();
   res.json({
     entities: entities,
     currentPage: page,
-    pages: Math.ceil(numOfEntities / resPerPage),
+    pages: Math.ceil(numOfEntities / rowsPerPage),
     // searchVal: searchQuery,
     numOfResults: numOfEntities,
   });

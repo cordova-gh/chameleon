@@ -5,21 +5,21 @@ const Service = require('./Service');
 const service = new Service();
 
 router.get('/', async (req, res) => {
-  const resPerPage = 10; // results per page
+  const rowsPerPage = Number(req.query.rowsPerPage) || 10;
   const page = req.query.page || 1;
   const entities = await service.getEntitiesPagination(
     Entity,
     req,
     {},
     page,
-    resPerPage,
+    rowsPerPage,
     'dominio'
   );
   const numOfEntities = await service.numEntitiesPagination(Entity, req, {});
   res.json({
     entities: entities,
     currentPage: page,
-    pages: Math.ceil(numOfEntities / resPerPage),
+    pages: Math.ceil(numOfEntities / rowsPerPage),
     // searchVal: searchQuery,
     numOfResults: numOfEntities,
   });

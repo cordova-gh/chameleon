@@ -5,7 +5,7 @@ const Service = require('./Service');
 const service = new Service();
 
 router.get('/', async (req, res) => {
-  const resPerPage = 10;
+  const rowsPerPage = Number(req.query.rowsPerPage) || 10;
   const page = req.query.page || 1;
   // /*.populate({path:'prodotto.provenienza', 'model':'Country', select:'codiceIsoStato descrizione'})
   // .populate({path:'prodotto.marca', 'model':'Marca', select:'codice descrizione'})*/
@@ -14,14 +14,14 @@ router.get('/', async (req, res) => {
     req,
     {},
     page,
-    resPerPage,
+    rowsPerPage,
     'codice'
   );
   const numOfEntities = await service.numEntitiesPagination(Entity, req, {});
   res.json({
     entities: entities,
     currentPage: page,
-    pages: Math.ceil(numOfEntities / resPerPage),
+    pages: Math.ceil(numOfEntities / rowsPerPage),
     // searchVal: searchQuery,
     numOfResults: numOfEntities,
   });
