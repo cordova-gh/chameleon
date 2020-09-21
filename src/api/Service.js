@@ -9,6 +9,9 @@ module.exports = class Service {
             let reg = new RegExp('^' + reqQueries[reqQueryField] + '.*', 'i');
             queryObject.where(filterField[0], reg);
           }
+          else if (filterField[1] === 'equals') {
+            queryObject.where(filterField[0], reqQueries[reqQueryField]);
+          }
         }
       });
     }
