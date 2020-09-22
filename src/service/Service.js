@@ -32,8 +32,9 @@ module.exports = class Service {
     return this.paramsQuery(entity.find(filterBase), request.query);
   }
 
-  async getEntitiesPagination(Entity, req,filterBase, page, rowsPerPage,sortFields){
+  async getEntitiesPagination(Entity, req,filterBase, page, rowsPerPage,sortFields, populateFields){
     return   this.getQueryDocument(Entity, req, filterBase)
+    .populate(populateFields)
     /*.populate({path:'prodotto.provenienza', 'model':'Country', select:'codiceIsoStato descrizione'})
     .populate({path:'prodotto.marca', 'model':'Marca', select:'codice descrizione'})*/
     .skip(rowsPerPage * page - rowsPerPage)

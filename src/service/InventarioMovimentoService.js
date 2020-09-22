@@ -14,7 +14,8 @@ class InventarioMovimentoService extends Service {
       {},
       page,
       rowsPerPage,
-      ''
+      '',
+      'articolo segno causale'
     );
     const numOfEntities = await this.numEntitiesPagination(Entity, request, {});
     return {
