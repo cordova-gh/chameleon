@@ -1,6 +1,5 @@
 const Entity = require('../models/Marca');
 const Service = require('./Service');
-
 class MarcaService extends Service {
 
   async getAllPaginated(request) {
@@ -33,7 +32,7 @@ class MarcaService extends Service {
 
   async create(body) {
     const entity = new Entity(body);
-    await entity.save();
+    return await entity.save();
   }
 
   async updateById(id, body) {

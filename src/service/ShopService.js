@@ -1,6 +1,5 @@
 const Entity = require('../models/Shop');
 const Service = require('./Service');
-
 class ShopService extends Service {
   async getAllPaginated(request) {
     const rowsPerPage = Number(request.query.rowsPerPage) || 10;
@@ -28,7 +27,7 @@ class ShopService extends Service {
 
   async create(body) {
     const entity = new Entity(body);
-    await entity.save();
+    return await entity.save();
   }
 
   async updateById(id, body) {

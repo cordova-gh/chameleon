@@ -28,13 +28,14 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
   const entity = await unitaMisuraService.create(req.body);
+  console.log(entity);
   res.json({
     response: entity._id,
   });
 });
 
 router.put('/:id', async (req, res) => {
-  await unitaMisuraService.updateById(req.params.id);
+  await unitaMisuraService.updateById(req.params.id, req.body);
   res.json({
     status: 'OK modificato',
   });

@@ -1,6 +1,5 @@
 const Entity = require('../models/Anagrafica');
 const Service = require('./Service');
-
 class AnagraficaService extends Service {
   async getAllPaginated(request) {
     const rowsPerPage = Number(request.query.rowsPerPage) || 10;
@@ -21,7 +20,7 @@ class AnagraficaService extends Service {
 
   async create(body) {
     const entity = new Entity(body);
-    await entity.save();
+    return await entity.save();
   }
 
   async updateById(id, body) {
@@ -32,6 +31,5 @@ class AnagraficaService extends Service {
     await Entity.findByIdAndRemove(id);
   }
 }
-
 
 module.exports = AnagraficaService;

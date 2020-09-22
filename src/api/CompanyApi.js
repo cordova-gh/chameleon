@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-  await companyService.updateById(req.params.id);
+  await companyService.updateById(req.params.id, req.body);
   res.json({
     status: 'OK modificato',
   });

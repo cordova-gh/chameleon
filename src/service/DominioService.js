@@ -1,7 +1,6 @@
 const Entity = require('../models/Dominio');
 const Service = require('./Service');
 class DominioService extends Service {
-
   async getAllPaginated(request) {
     const rowsPerPage = Number(request.query.rowsPerPage) || 10;
     const page = request.query.page || 1;
@@ -55,7 +54,7 @@ class DominioService extends Service {
 
   async create(body) {
     const entity = new Entity(body);
-    await entity.save();
+    return await entity.save();
   }
 
   async updateById(id, body) {

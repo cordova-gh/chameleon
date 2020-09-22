@@ -1,7 +1,6 @@
 const Entity = require('../models/Company');
 const Anagrafica = require('../models/Anagrafica');
 const Service = require('./Service');
-
 class CompanyService extends Service {
   async getAllPaginated(request) {
     const rowsPerPage = Number(request.query.rowsPerPage) || 10;
@@ -38,20 +37,19 @@ class CompanyService extends Service {
     companyBody.anagrafica.stAnagrafica = 'O';
     companyBody.anagrafica.titolo = 'SRL';
     companyBody.anagrafica.isCompany = true;
-    const anagraficaId = await salvaAnagrafica(companyBody.anagrafica);
+    const anagraficaId = await this.salvaAnagrafica(companyBody.anagrafica);
 
     const companyToInsert = new Entity({
       codice: companyBody.codice,
       descrizione: companyBody.descrizione,
       anagrafica: anagraficaId,
     });
-    await companyToInsert.save();
-
+    return await companyToInsert.save();
   }
 
   async updateById(id, body) {
     const user = body;
-    const anagraficaId = await salvaAnagrafica(req.body.anagrafica);
+    const anagraficaId = await this.salvaAnagrafica(req.body.anagrafica);
     delete req.body.anagrafica;
     user['anagrafica'] = anagraficaId;
     await Entity.findByIdAndUpdate(id, user);

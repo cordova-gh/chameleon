@@ -1,6 +1,5 @@
 const Entity = require('../models/Articolo');
 const Service = require('./Service');
-
 class ProdottoService extends Service {
 
   async getAllPaginated(request) {
@@ -35,7 +34,7 @@ class ProdottoService extends Service {
 
   async create(body) {
     const entity = new Entity(body);
-    await entity.save();
+    return await entity.save();
   }
 
   async updateById(id, body) {

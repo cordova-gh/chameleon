@@ -1,6 +1,5 @@
 const Entity = require('../models/InventarioMovimento');
 const Service = require('./Service');
-
 class InventarioMovimentoService extends Service {
 
   async getAllPaginated(request) {
@@ -33,7 +32,7 @@ class InventarioMovimentoService extends Service {
 
   async create(body) {
     const entity = new Entity(body);
-    await entity.save();
+    return await entity.save();
   }
 
   async saveCarico(body) {

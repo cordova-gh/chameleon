@@ -1,6 +1,5 @@
 const Entity = require('../models/Country');
 const Service = require('./Service');
-
 class CountryService extends Service {
 
   async getAllPaginated(request) {
@@ -39,7 +38,7 @@ class CountryService extends Service {
 
   async create(body) {
     const entity = new Entity(body);
-    await entity.save();
+    return await entity.save();
   }
 
   async updateById(id, body) {

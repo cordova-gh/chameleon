@@ -22,14 +22,14 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   const entity = await profileService.create(req.body);
   res.json({
-    status: 'OK RICEVUTO',
+    status: entity._id,
   });
 });
 
 router.put('/:id', async (req, res) => {
-  await profileService.updateById(req.params.id);
+  await profileService.updateById(req.params.id, req.body);
   res.json({
-    response: entity._id,
+    response: 'Modificato',
   });
 });
 
