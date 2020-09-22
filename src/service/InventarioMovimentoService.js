@@ -1,5 +1,8 @@
 const Entity = require('../models/InventarioMovimento');
 const Service = require('./Service');
+const ProdottoService = require('../service/ProdottoService');
+const prodottoService = new ProdottoService();
+const mongoose = require('mongoose');
 class InventarioMovimentoService extends Service {
 
   async getAllPaginated(request) {
@@ -42,7 +45,12 @@ class InventarioMovimentoService extends Service {
     entity.causale = '5f67e35a6a0cf0b8ec9e4ac4';
     // avere
     entity.segno = '5f67d80de3964500045d0d70';
-    await entity.save();
+    const articolo = await prodottoService.getById(entity.articolo);
+    articolo.prodotto.quantita =  articolo.prodotto.quantita ? articolo.prodotto.quantita + entity.quantita: entity.quantita;
+    articolo.prodotto.ultimoIngresso = entity.dataRegistrazione;
+    await prodottoService.updateById(articolo._id, articolo);
+    return await entity.save();
+
   }
 
   async updateById(id, body) {
