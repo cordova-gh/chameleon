@@ -25,7 +25,7 @@ class ProdottoService extends Service {
   }
 
   async getAll(request, response) {
-    return await this.getAll(Entity, request, response, 'codice descrizione', 'descrizione');
+    return await this.findAll(Entity, request, response, 'codice descrizione', 'descrizione');
   }
 
   async getById(id) {
