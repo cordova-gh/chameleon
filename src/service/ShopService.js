@@ -21,6 +21,9 @@ class ShopService extends Service {
     }
   }
 
+  async getAll(request, response) {
+    return await this.findAll(Entity, request, response, 'codice descrizione', 'descrizione');
+  }
   async getById(id) {
     return await this.findById(Entity, id);
   }

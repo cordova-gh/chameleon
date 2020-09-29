@@ -26,6 +26,13 @@ router.post('/', async (req, res) => {
   });
 });
 
+router.get('/all', async (req, res) => {
+  const entities = await shopService.getAll(req);
+  return res.json({
+    entities: entities,
+  });
+});
+
 router.put('/:id', async (req, res) => {
   await shopService.updateById(req.params.id, req.body);
   res.json({
