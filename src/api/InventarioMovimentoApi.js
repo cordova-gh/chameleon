@@ -40,6 +40,13 @@ router.post('/save-carico', async (req, res) => {
   });
 });
 
+router.post('/split-in-shops', async (req, res) => {
+  await inventarioMovimentoService.splitInShops(req.body);
+  res.json({
+    status: 'OK RICEVUTO',
+  });
+});
+
 router.put('/:id', async (req, res) => {
   await inventarioMovimentoService.updateById(req.params.id, req.body);
   res.json({

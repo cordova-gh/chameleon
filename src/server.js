@@ -57,6 +57,7 @@ app.use('/api/prodottos', require('./api/ProdottoApi'));
 app.use('/api/unita-misuras', require('./api/UnitaMisuraApi'));
 app.use('/api/marcas', require('./api/MarcaApi'));
 app.use('/api/inventario-movimentos', require('./api/InventarioMovimentoApi'));
+app.use('/api/inventario-shop-movimentos', require('./api/InventarioShopMovimentoApi'));
 //app.use('/api/auth/google', require('./api/GoogleApi'));
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));

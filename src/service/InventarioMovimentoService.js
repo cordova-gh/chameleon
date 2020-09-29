@@ -2,6 +2,8 @@ const Entity = require('../models/InventarioMovimento');
 const Service = require('./Service');
 const ProdottoService = require('../service/ProdottoService');
 const prodottoService = new ProdottoService();
+const InventarioShopMovimentoService = require('./InventarioShopMovimentoService');
+const inventarioShopMovimentoService = new InventarioShopMovimentoService();
 const mongoose = require('mongoose');
 class InventarioMovimentoService extends Service {
 
@@ -49,6 +51,28 @@ class InventarioMovimentoService extends Service {
     const articolo = await prodottoService.getById(entity.articolo);
     articolo.prodotto.quantita =  articolo.prodotto.quantita ? articolo.prodotto.quantita + entity.quantita: entity.quantita;
     articolo.prodotto.ultimoIngresso = entity.dataRegistrazione;
+    await prodottoService.updateById(articolo._id, articolo);
+    return await entity.save();
+
+  }
+
+  async splitInShops(body) {
+    console.log(body);
+    // INVENTARIO MOVIMENTO
+    const entity = new Entity();
+    entity.quantita = body.inventarioShopMovimentos
+      .map(corrente => corrente.quantita)
+      .reduce((somma, current) => Number(somma) + Number(current), 0);
+    entity.dataRegistrazione = Date.now();
+    // carico magazzino
+    entity.causale = '5f67e3326a0cf0b8ec9e4ac3';
+    // avere
+    entity.segno = '5f67d81ae3964500045d0d71';
+    entity.articolo = body.articolo;
+    const articolo = await prodottoService.getById(body.articolo);
+    articolo.prodotto.quantita =  articolo.prodotto.quantita ? articolo.prodotto.quantita + entity.quantita: entity.quantita;
+
+    await inventarioShopMovimentoService.saveCarico(body.movimentoInventario, body.inventarioShopMovimentos);
     await prodottoService.updateById(articolo._id, articolo);
     return await entity.save();
 

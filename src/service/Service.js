@@ -19,6 +19,11 @@ module.exports = class Service {
   async findById(entityModel, id, populateFields) {
     return await entityModel.findById(id).populate(populateFields);
   }
+  async findByField(entityModel, field, valore) {
+    const queryObject = entityModel.find();
+    queryObject.where(field , valore);
+    return await  queryObject.exec();
+  }
 
   async findAll(entityModel, req, res, selectFields, sortFields) {
     let queryObject = entityModel.find();
